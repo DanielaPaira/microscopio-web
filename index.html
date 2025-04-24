@@ -1,53 +1,57 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Visor Microscopio Digital</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.css" />
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        #controls {
-            padding: 10px;
-            background-color: #f0f0f0;
-            z-index: 1;
-        }
-        #viewer {
-            flex-grow: 1;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visor Microscopio Digital</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.css" />
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    #topbar {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      z-index: 999;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 8px;
+    }
+    #viewer {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
 </head>
 <body>
 
-    <div id="controls">
-        <label for="imageSelect">Seleccionar imagen: </label>
-        <select id="imageSelect">
-            <option value="Prueba1_dzi.dzi">Prueba1</option>
-            <option value="Prost1_dzi.dzi">Prost1</option>
-            <option value="Prost2_dzi.dzi">Prost2</option>
-        </select>
-    </div>
+  <div id="topbar">
+    <label for="imageSelector">Seleccionar imagen:</label>
+    <select id="imageSelector">
+      <option value="Prost1_dzi.dzi">Prost1</option>
+      <option value="Prost2_dzi.dzi">Prost2</option>
+      <option value="Prueba1_dzi.dzi">Prueba1</option>
+    </select>
+  </div>
 
-    <div id="viewer"></div>
+  <div id="viewer"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.js"></script>
-    <script>
-        const viewer = OpenSeadragon({
-            id: "viewer",
-            prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/",
-            tileSources: "Prueba1_dzi.dzi"
-        });
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/openseadragon.min.js"></script>
+  <script>
+    var viewer = OpenSeadragon({
+      id: "viewer",
+      prefixUrl: "https://cdnjs.cloudflare.com/ajax/libs/openseadragon/2.4.2/images/",
+      tileSources: "Prost1_dzi.dzi"
+    });
 
-        const select = document.getElementById("imageSelect");
-        select.addEventListener("change", function() {
-            viewer.open(this.value);
-        });
-    </script>
+    document.getElementById('imageSelector').addEventListener('change', function () {
+      const selected = this.value;
+      viewer.open(selected);
+    });
+  </script>
 
 </body>
 </html>
